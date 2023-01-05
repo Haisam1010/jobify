@@ -1,9 +1,8 @@
-
-
+import Landing from "./screens/Landing";
 function App() {
   return (
-    <div className="App">
- 
+    <div>
+    <Landing />
     </div>
   );
 }
