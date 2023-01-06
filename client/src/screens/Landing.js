@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import Wrapper from '../assets/wrapper/Landing'
 import logo from '../assets/images/logo.svg'
 import main from '../assets/images/main.svg'
 
@@ -7,7 +7,7 @@ const Landing = () => {
   return (
 
     <Wrapper>
-    <nav>
+    <nav className='nav'>
         <img src={logo} alt='logo' className='main-logo' />
     </nav>
     <div className='container page'>
@@ -28,7 +28,7 @@ const Landing = () => {
             </button>
         </div>
 
-        <img src={main} alt='main' className='img img-main' />
+        <img src={main} alt='main' className='img main-img' />
     </div>
 
     
@@ -36,18 +36,6 @@ const Landing = () => {
   )
 }
 
-const Wrapper = styled.main`
-
-   nav{
-    width : var(--fluid-width)
-    max-width: var(--max-width)
-    margin: 0 auto
-    height: var(--nav-height)
-    display:flex
-    align-items : center
-   }
-
-`
 
 
 export default Landing
