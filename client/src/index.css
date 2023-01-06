@@ -77,6 +77,35 @@ body {
   color: var(--textColor);
 }
 
+nav{
+  width : var(--fluid-width);
+  max-width:var(--max-width);
+  margin: 0 auto ;
+  height: var(--nav-height);
+  display:flex;
+  align-items : center;
+ }
+
+
+ .page{
+  min-height:calc(100vh - var(nav-height));
+  display:grid;
+  margin-top: -3rem;
+
+ }
+ h1{
+  font-weight: 700
+ }
+ span{
+  color: var(--primary-500)
+ }
+ p{
+  color:var(--grey-600)
+ }
+ .main-img{
+  display:none
+ }
+
 p {
   margin-bottom: 1.5rem;
   max-width: 40em;
@@ -318,4 +347,5 @@ ul {
     display: inline-block;
     margin-right: 0.5rem;
   }
+ 
 }
