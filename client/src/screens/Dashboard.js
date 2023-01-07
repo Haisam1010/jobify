@@ -1,11 +1,10 @@
-import { useState,useEffect } from "react"
-import Logo from "../components/Logo"
+
 
 const Dashboard = () => {
 
   return (
     <div>
-      
+      <h1>DashBoard</h1>
     </div>
   )
 }

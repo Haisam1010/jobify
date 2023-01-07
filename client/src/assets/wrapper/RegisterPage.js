@@ -6,6 +6,7 @@ const Wrapper = styled.section`
   .logo {
     display: block;
     margin: 0 auto;
+
     margin-bottom: 1.38rem;
   }
   .form {
