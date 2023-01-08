@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react"
 import {RegForm,Logo,Alert} from '../components/index'
-
+import { useAppContext } from "../context/appContext"
 import Wrapper from "../assets/wrapper/RegisterPage"
 
 
@@ -9,7 +9,7 @@ const initialState = {
     email:'',
     password:'',
     isMember: true,
-    showAlert: false
+   
 }
 
 
@@ -18,6 +18,8 @@ const Register = () => {
 
 // Global State and Navigate
     const [values,setValues] = useState(initialState)
+
+    const {isLoading,showAlert} = useAppContext()
 
 const handleChange = (e) =>{
     console.log(e.target)
@@ -39,7 +41,7 @@ const onSubmit = (e) =>{
     <Logo />
     <h3>{values.isMember ? 'Login' : 'Register'}</h3>
 
-    {values.showAlert && <Alert />}
+    {showAlert && <Alert />}
     {/* Name input */}
 
     {!values.isMember &&(
