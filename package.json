@@ -1,21 +1,8 @@
 {
-  "name": "jobify",
-  "version": "1.0.0",
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "server.js",
-  "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Haisam1010/jobify.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Haisam1010/jobify/issues"
-  },
-  "homepage": "https://github.com/Haisam1010/jobify#readme"
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
