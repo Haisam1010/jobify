@@ -2,6 +2,8 @@ import { useState,useEffect } from "react"
 import {RegForm,Logo,Alert} from '../components/index'
 import { useAppContext } from "../context/appContext"
 import Wrapper from "../assets/wrapper/RegisterPage"
+import reducer from "../context/reducer"
+
 
 
 const initialState = {
@@ -12,27 +14,35 @@ const initialState = {
    
 }
 
-
-
 const Register = () => {
 
 // Global State and Navigate
     const [values,setValues] = useState(initialState)
 
-    const {isLoading,showAlert} = useAppContext()
+    const {isLoading,showAlert,displayAlert} = useAppContext()
+
+
+    const toggleMember = () =>{
+        setValues({...values,isMember:!values.isMember})
+    }
+    
 
 const handleChange = (e) =>{
-    console.log(e.target)
-}
-
-const toggleMember = () =>{
-    setValues({...values,isMember:!values.isMember})
+   setValues({...values,[e.target.name]:e.target.value})
 }
 
 const onSubmit = (e) =>{
     e.preventDefault()
-    console.log(e.target)
+    const {name,email,password,isMember} = values
+
+    if(!email || !password || (!isMember && !name)){
+        displayAlert()
+        return
+        
+     }
+   
 }
+
 
   return (
     <Wrapper className='full-page'>
