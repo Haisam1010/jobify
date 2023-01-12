@@ -1,5 +1,6 @@
 import  express  from "express";
 import ConnectDB from "./DB/connect.js";
+import {StatusCodes} from 'http-status-codes'
 import colors from 'colors'
 const app = express()
 import dotenv from 'dotenv'
