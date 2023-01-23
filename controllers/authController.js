@@ -8,16 +8,26 @@ const Register = async(req,res) =>{
         if(!name || !email || !password){
             throw new BadRequest('Please Provide All Values')
         }
+        const UserExist = await UserModel.findOne({email})
+
+        if(UserExist){
+            throw new BadRequest('Email Already Exist')
+            return;
+        }
 
         const user = await UserModel.create({name,email,password})
         res.status(StatusCodes.OK).json({user})
+        const token = user.createJWT()
+        res.status(StatusCodes.OK).json({user,token})
+
   
 }
 const Login = async(req,res) =>{
     res.send('Login Page').json({msg:'hello reg'})
 }
 const Update =async(req,res) =>{
-    res.send('Update Page').json({msg:'hello reg'})
+    Users.findOneAndUpdate
+    res.send('Update Page')
 }
 
 export {Register,Login,Update}
