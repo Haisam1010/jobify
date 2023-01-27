@@ -5,8 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon server --ignore server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently --kill"
   },
   "repository": {
     "type": "git",
@@ -21,13 +22,16 @@
   "homepage": "https://github.com/Haisam1010/jobify#readme",
   "dependencies": {
     "axios": "^1.2.2",
+    "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
+    "concurrently": "^7.6.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "express-async-handler": "^1.2.0",
     "http-status-codes": "^2.2.0",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.3",
     "nodemon": "^2.0.20",
     "validator": "^13.7.0"
