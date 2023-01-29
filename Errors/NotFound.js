@@ -1,3 +1,4 @@
+import CustomApiError from "./CustomError.js"
 class NotFound extends CustomApiError {
     constructor(message){
         super(message)

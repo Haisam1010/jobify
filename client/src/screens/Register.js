@@ -15,17 +15,16 @@ const initialState = {
 }
 
 const Register = () => {
-
-// Global State and Navigate
     const [values,setValues] = useState(initialState)
+// Global State and Navigate
+    const {isLoading,showAlert,displayAlert,registerUser} = useAppContext()
 
-    const {isLoading,showAlert,displayAlert} = useAppContext()
+    useAppContext()
 
-
-    const toggleMember = () =>{
+const toggleMember = () =>{
         setValues({...values,isMember:!values.isMember})
     }
-    
+
 
 const handleChange = (e) =>{
    setValues({...values,[e.target.name]:e.target.value})
@@ -36,11 +35,10 @@ const onSubmit = (e) =>{
     const {name,email,password,isMember} = values
 
     if(!email || !password || (!isMember && !name)){
-        displayAlert()
-        return
-        
+       displayAlert()
+       return
      }
-   
+
 }
 
 
@@ -74,7 +72,7 @@ const onSubmit = (e) =>{
     value={values.password} 
     handleChange={handleChange} />
 
-    <button type="submit" className="btn btn-block">Submit</button>
+    <button type="submit" className="btn btn-block" disabled={isLoading}>Submit</button>
     
     <p>
         {values.isMember ? 'Not A Member Yet ?' : 'Already Member ?'}

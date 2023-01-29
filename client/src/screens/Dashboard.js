@@ -1,12 +1,9 @@
-
+import {useEffect} from 'react'
 
 const Dashboard = () => {
 
-  return (
-    <div>
-      <h1>DashBoard</h1>
-    </div>
-  )
+ 
+  return <h1>Dash Board Data</h1>
 }
 
 export default Dashboard

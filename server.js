@@ -1,3 +1,4 @@
+import cors from 'cors'
 import  express  from "express";
 import ConnectDB from "./DB/connect.js";
 import {StatusCodes} from 'http-status-codes'
@@ -14,6 +15,7 @@ import notFoundMiddleWare from "./middleware/notFound.js";
 import errorHandler from "./middleware/errorHandler.js";
 notFoundMiddleWare
 notFoundMiddleWare
+app.use(cors())
 app.use(express.json())
 
 //** routers */
@@ -25,8 +27,10 @@ const port = process.env.Port || 3001
 
 // ** Get Route
 app.get('/',(req,res)=>{
-  
-    res.send('Welcome....')
+    res.json({msg:'Welcome...'})
+})
+app.get('/api/v1',(req,res)=>{
+    res.json({msg:'API...'})
 })
 
 app.use('/api/v1/auth',authRoutes)

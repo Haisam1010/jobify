@@ -8,11 +8,10 @@ const Register = async(req,res) =>{
         if(!name || !email || !password){
             throw new BadRequest('Please Provide All Values')
         }
-        const UserExist = await UserModel.findOne({email})
+        const UserExist = await UserModel.findOne({email:req.body.email})
 
         if(UserExist){
-            throw new BadRequest('Email Already Exist')
-            return;
+           return  res.status.BadRequest('Email Already Exist...')
         }
 
         const user = await UserModel.create({name,email,password})
