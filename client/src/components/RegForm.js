@@ -10,7 +10,7 @@ const RegForm = ({value,handleChange,name,type,labelText}) => {
      type={type} 
      value={value.name}
      onChange={handleChange} 
-     name='name' 
+     name={name} 
      className='form-input' />
 </div>
   )

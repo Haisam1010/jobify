@@ -3,6 +3,8 @@ import  express  from "express";
 import ConnectDB from "./DB/connect.js";
 import {StatusCodes} from 'http-status-codes'
 import colors from 'colors'
+import morgan from 'morgan';
+
 const app = express()
 import dotenv from 'dotenv'
 dotenv.config()
@@ -16,6 +18,10 @@ import errorHandler from "./middleware/errorHandler.js";
 notFoundMiddleWare
 notFoundMiddleWare
 app.use(cors())
+
+if(process.env.NODE_ENV !== 'production'){
+    app.use(morgan('dev'))
+}
 app.use(express.json())
 
 //** routers */
