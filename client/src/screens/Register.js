@@ -11,15 +11,17 @@ const initialState = {
     email:'',
     password:'',
     isMember: true,
-   
+    isUserSet:true
 }
 
 const Register = () => {
+    //** UseNavigate */
     const navigate = useNavigate()
     const [values,setValues] = useState(initialState)
+
+    //** Global State */
     const {user,isLoading,showAlert,displayAlert,registerUser} = useAppContext()
 
-    useAppContext()
 
 const toggleMember = () =>{
         setValues({...values,isMember:!values.isMember})
@@ -31,15 +33,13 @@ const handleChange = (e) =>{
 }
 
 const onSubmit = (e) =>{
-    e.preventDefault()
+
     const {name,email,password,isMember} = values
 
     if(!email || !password || (!isMember && !name)){
        displayAlert()
-       return
+       return 
      }
-
-
     const currentUser = {email,name,password}
     if(isMember){
         console.log('Already Member...');

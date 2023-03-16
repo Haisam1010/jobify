@@ -1,27 +1,25 @@
-import React,{ useState,useReducer,useContext } from "react";
+import React,{ useState,useReducer,useContext,createContext } from "react";
 import reducer from "./reducer";
 import axios from 'axios'
 
-import { DISPLAY_ALERT,CLEAR_ALERT,
-    REGISTER_USER_BEGIN,
-    REGISTER_USER_SUCCESS 
-    ,REGISTER_USER_ERROR  } from "./action"
-
-const token = localStorage.getItem('token')    
-const userLocation = localStorage.getItem('location')    
-const user = localStorage.getItem('user')    
+import {
+        DISPLAY_ALERT,CLEAR_ALERT,
+        REGISTER_USER_BEGIN,
+        REGISTER_USER_SUCCESS,
+        REGISTER_USER_ERROR 
+        }from "./action"
 
 
 const initialState = {
     isLoading:false,
+    isUserSet:false,
     showAlert:false,
     alertText:'',
     alertType:'',
-    user:user?JSON.parse(user):null,
+    user:null,
     token: null,
-    userLocation:Location || '',
-    jobLocation :Location || '',
-    
+    userLocation:'',
+    jobLocation :'',   
 }
 
 const AppContext = React.createContext()
@@ -61,13 +59,12 @@ const AppProvider = ({children}) =>{
         try {
             const response = await axios.post('/api/v1/auth/register',currentUser)
 
-            const {user,token,userLocation} = response.data
+            const {user,token,location} = response.data
             dispatch({
                 type:REGISTER_USER_SUCCESS,
-                payload: {user,token,userLocation}
+                payload: {user,token,location}
             })
-            
-            addUserToLocalStorage({user,token,Location})
+            addUserToLocalStorage({user,token,location})
         } catch (error) {
             
             dispatch({
@@ -89,3 +86,4 @@ const useAppContext = () =>{
 }
 
 export {initialState,useAppContext,AppProvider}
+

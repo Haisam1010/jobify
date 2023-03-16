@@ -22,7 +22,8 @@ const reducer = (state,action) =>{
             ...state,
             showAlert : false,
             alertType: '',
-            alertText: ''
+            alertText: '',
+            isUserSet:false
 
         }
     }
@@ -38,6 +39,7 @@ const reducer = (state,action) =>{
             ...state,
             isLoading: false,
             token:action.payload.token,
+            user:action.payload.user,
             userLocation: action.payload.location,
             jobLocation:action.payload.location,
             showAlert:true,

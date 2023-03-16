@@ -29,7 +29,7 @@ import authRoutes from './Routes/authRoutes.js'
 import jobRoutes from './Routes/jobRoutes.js'
 
 // ** Port 
-const port = process.env.Port || 3001
+const port = process.env.Port || 5001
 
 // ** Get Route
 app.get('/',(req,res)=>{
@@ -64,4 +64,5 @@ const start = async () =>{
         console.log
     }
 }
+
 start()
