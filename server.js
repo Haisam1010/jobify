@@ -33,8 +33,9 @@ const port = process.env.Port || 5001
 
 // ** Get Route
 app.get('/',(req,res)=>{
-    res.json({msg:'Welcome...'})
+    res.json({msg:'Welcome... Home...!'})
 })
+
 app.get('/api/v1',(req,res)=>{
     res.json({msg:'API...'})
 })
@@ -44,7 +45,6 @@ app.use('/api/v1/jobs',jobRoutes)
 
 app.use(notFoundMiddleWare)
 app.use(errorHandler)
-
 
 const start = async () =>{
     try {
@@ -57,7 +57,7 @@ const start = async () =>{
        }
     // ** Listening Port
     app.listen(port,()=>{
-    console.log(`Server is Running on  ${port}...`)
+    console.log(`Server is Running on ${port}...!`)
 })
         
     } catch (error) {

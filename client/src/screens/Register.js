@@ -11,7 +11,7 @@ const initialState = {
     email:'',
     password:'',
     isMember: true,
-    isUserSet:true
+
 }
 
 const Register = () => {
@@ -88,7 +88,7 @@ const onSubmit = (e) =>{
     value={values.password} 
     handleChange={handleChange} />
 
-    <button type='submit' className="btn btn-block"  disabled={isLoading}>Submit</button>
+    <button type='submit' className="btn btn-block" onClick={onSubmit} disabled={isLoading}>Submit</button>
     
     <p>
         {values.isMember ? 'Not A Member Yet ?' : 'Already Member ?'}

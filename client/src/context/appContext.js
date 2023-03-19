@@ -9,17 +9,19 @@ import {
         REGISTER_USER_ERROR 
         }from "./action"
 
+const token = localStorage.getItem('token')
+const user = localStorage.getItem('user')
+const location = localStorage.getItem('location')
 
 const initialState = {
     isLoading:false,
-    isUserSet:false,
     showAlert:false,
     alertText:'',
     alertType:'',
-    user:null,
-    token: null,
-    userLocation:'',
-    jobLocation :'',   
+    user:user ? JSON.parse(user) : null,
+    token:token,
+    userLocation:location ||  '',
+    jobLocation :location || '',   
 }
 
 const AppContext = React.createContext()
@@ -64,9 +66,8 @@ const AppProvider = ({children}) =>{
                 type:REGISTER_USER_SUCCESS,
                 payload: {user,token,location}
             })
-            addUserToLocalStorage({user,token,location})
-        } catch (error) {
             
+        } catch (error) {
             dispatch({
                 type: REGISTER_USER_ERROR, payload: {msg:error.response.data.msg}
             })
