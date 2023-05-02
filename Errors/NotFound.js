@@ -1,8 +1,11 @@
-import CustomApiError from "./CustomError.js"
-class NotFound extends CustomApiError {
+import {StatusCodes} from 'http-status-codes'
+import CustomApi from './Custom-Error.js'
+
+
+class NotFound extends CustomApi {
     constructor(message){
         super(message)
-        this.statusCode = StatusCodes.NOT_FOUND
+        this.StatusCode = StatusCodes.NOT_FOUND
     }
 }
 

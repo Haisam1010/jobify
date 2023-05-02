@@ -1,13 +1,7 @@
-import  express  from "express";
-const router = express.Router()
+import express from 'express'
+import { createJob,getAllJob,updateJob,deleteJob,showStats } from '../controllers/job.js'
 
-import { 
-    createJob,
-    deleteJob,
-    getAllJob,
-    updateJob,
-    showStats 
-} from "../controllers/jobControllers.js";
+const router = express.Router()
 
 router.route('/').post(createJob).get(getAllJob)
 router.route('/stats').get(showStats)

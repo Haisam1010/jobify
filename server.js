@@ -1,68 +1,55 @@
-import cors from 'cors'
-import  express  from "express";
-import ConnectDB from "./DB/connect.js";
-import {StatusCodes} from 'http-status-codes'
-import colors from 'colors'
+import 'express-async-errors'
 import morgan from 'morgan';
-
+import express from "express";
 const app = express()
 import dotenv from 'dotenv'
 dotenv.config()
-import 'express-async-errors'
-const Port = process.env.port
-const MONGO_URL = process.env.MONGO_URL
 
-// ** Middleware
-import notFoundMiddleWare from "./middleware/notFound.js";
-import errorHandler from "./middleware/errorHandler.js";
-notFoundMiddleWare
-notFoundMiddleWare
-app.use(cors())
 
 if(process.env.NODE_ENV !== 'production'){
     app.use(morgan('dev'))
 }
 app.use(express.json())
 
-//** routers */
-import authRoutes from './Routes/authRoutes.js'
+//** Routes */
+import authRouter from "./Routes/authRoutes.js";
 import jobRoutes from './Routes/jobRoutes.js'
 
-// ** Port 
-const port = process.env.Port || 5001
+//** Middleware */
+import notFoundMiddleWare from "./middleware/notefound.js";
+import errorshandlers from "./middleware/errorshandler.js";
+import ConnectDB from "./DB/db.js";
 
-// ** Get Route
+
+
+ const PORT = 3001
+
+
+
+app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/jobs', jobRoutes)
+
 app.get('/',(req,res)=>{
-    res.json({msg:'Welcome... Home...!'})
+    res.json({msg:'welcome'})
 })
-
 app.get('/api/v1',(req,res)=>{
-    res.json({msg:'API...'})
+    res.json({msg:'Api'})
 })
-
-app.use('/api/v1/auth',authRoutes)
-app.use('/api/v1/jobs',jobRoutes)
 
 app.use(notFoundMiddleWare)
-app.use(errorHandler)
+app.use(errorshandlers)
 
-const start = async () =>{
+
+
+
+const start = async () => {
     try {
-       await ConnectDB(process.env.MONGO_URL)
-       if(ConnectDB){
-        console.log(`Connection Established`.cyan.underline)
-       }
-       else{
-        console.log(`error`.cyan.underline)
-       }
-    // ** Listening Port
-    app.listen(port,()=>{
-    console.log(`Server is Running on ${port}...!`)
-})
-        
-    } catch (error) {
-        console.log
+        await ConnectDB(process.env.MONGO_URL)
+        app.listen(PORT,()=>{
+            console.log(`Server is Running ${PORT}`)
+        })
+    } catch (err) {
+        console.log(err)
     }
 }
-
 start()

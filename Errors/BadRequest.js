@@ -1,10 +1,12 @@
 import {StatusCodes} from 'http-status-codes'
-import CustomApiError from './CustomError.js'
-class BadRequest extends CustomApiError {
+import CustomApi from "./Custom-Error.js"
+
+
+class BadRequest extends CustomApi {
     constructor(message){
         super(message)
-        this.statusCode = StatusCodes.BAD_REQUEST
+        this.StatusCode = StatusCodes.BAD_REQUEST
     }
 }
-
 export default BadRequest
+
