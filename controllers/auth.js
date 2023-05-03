@@ -28,10 +28,10 @@ const Register = async (req,res) => {
 const Login = async (req,res) => {
     const {email,password} = req.body
     if(!email || !password){
-        throw new BadRequestError('Please Provide All Values ')
+        throw new BadRequest('Please Provide All Values ')
     }
 
-    const user = User.findOne({email}).select('+password')
+    const user = await User.findOne({email}).select('+password')
     if(!user){
 
         throw new UnAuthaticate('invalid credentials')
