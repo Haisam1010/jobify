@@ -9,7 +9,9 @@ import {
   REGISTER_USER_ERROR,
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_ERROR
+  LOGIN_USER_ERROR,
+  TOGGLE_SIDEBAR,
+  LOGOUT_USER
   }
   from "./action"
 import { useNavigate } from "react-router-dom";
@@ -26,12 +28,14 @@ const initialState = {
     user:user ? JSON.parse(user) : null,
     token:token,
     userLocation:userLocation || '',
-    jobLocation: userLocation || ''
+    jobLocation: userLocation || '',
+    showSidebar : false
 }
 
 const AppContext = React.createContext()
 
 const AppProvider = ({children}) => {
+
   const [state,dispatch] = useReducer(reducer,initialState)
 
   const displayAlert = () => {
@@ -51,7 +55,7 @@ const AppProvider = ({children}) => {
     localStorage.setItem('toke',token)
     localStorage.setItem('location',location)
   }
-  const removeStorage = ({user,token,location}) =>{
+  const removeStorage = () =>{
     localStorage.removeItem('user')
     localStorage.removeItem('token')
     localStorage.removeItem('location')
@@ -106,9 +110,19 @@ const AppProvider = ({children}) => {
     clearAlert()
   }
 
-  return <AppContext.Provider value={{...state,displayAlert,RegisterUser,LoginUser}}>
+  const toggleSidebar = ()=> {
+    dispatch({type:TOGGLE_SIDEBAR})
+  }
+
+  const LogoutUser = ()=> {
+    dispatch({type:LOGOUT_USER})
+    removeStorage()
+  }
+
+  return <AppContext.Provider value={{...state,displayAlert,RegisterUser,LoginUser,toggleSidebar,LogoutUser}}>
     {children}
   </AppContext.Provider>
+
 }
 
 const useAppContext = () => {

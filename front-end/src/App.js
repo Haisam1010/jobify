@@ -1,5 +1,6 @@
-import {Register,Error,Landing} from "../src/screens" 
+import {Register,Error,Landing,ProtectedRoute} from "../src/screens" 
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import Wrapper from "./assets/wrapper/Shared";
 import {
   Stats,
   Shared,
@@ -12,8 +13,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Shared/>}>
-      <Route path="stats" element={<Stats/>}/>
+      <Route path="/" element={
+        <ProtectedRoute>
+          <Shared/>
+        </ProtectedRoute>
+      }>
+      <Route index element={<Stats/>}/>
       <Route path="all-jobs" element={<AllJobs/>}/>
       <Route path="add-jobs" element={<AddJob/>}/>
       <Route path="profile" element={<Profile/>}/>

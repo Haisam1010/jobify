@@ -18,6 +18,7 @@ import jobRoutes from './Routes/jobRoutes.js'
 //** Middleware */
 import notFoundMiddleWare from "./middleware/notefound.js";
 import errorshandlers from "./middleware/errorshandler.js";
+import authUser from './middleware/auth.js';
 import ConnectDB from "./DB/db.js";
 
 
@@ -27,7 +28,7 @@ import ConnectDB from "./DB/db.js";
 
 
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/jobs', jobRoutes)
+app.use('/api/v1/jobs', authUser,jobRoutes)
 
 app.get('/',(req,res)=>{
     res.json({msg:'welcome'})

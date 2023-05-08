@@ -26,7 +26,7 @@ const Register = () => {
 }
 
   const handleChange = (e) =>{
-    setValues({...values,[e.target.name]:e.target.value})
+    setValues({...values,[e.target.name]:e.target.value}) 
  }
 
   const onSubmit = (e) =>{
@@ -44,7 +44,7 @@ const Register = () => {
     else{
       RegisterUser(currentUser)
     }
-    console.log(values);
+  
   }
 
   useEffect(()=>{
@@ -79,7 +79,6 @@ const Register = () => {
       <button type='submit' className='btn btn-block'disabled={isLoading}>
         Submit
       </button>
-
       <p>
       {values.isMember ? 'NotYet Member ? ' : 'Already Member ? '}
         <button type='button' onClick={toggleMember} className='member-btn'>

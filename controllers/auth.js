@@ -22,7 +22,8 @@ const Register = async (req,res) => {
             user:{email:user.email,
             lastName:user.lastName,
             name:user.name,
-            location:user.location},token,location:user.location})
+            location:user.location}
+            ,token,location:user.location})
   
 }
 const Login = async (req,res) => {
@@ -55,7 +56,22 @@ const Login = async (req,res) => {
     res.send('Login User')
 }
 const Update = async (req,res) => {
-    res.send('Update user')
+    const {email,name,lastName,password,location} = req.body
+    if(!email ||!lastName ||!name ||!location){
+        throw new BadRequest('Please Provide All Values ')
+    }
+    const user = await User.findOne({_id:req.user.userId})
+
+    user.email = email
+    user.lastName = lastName
+    user.name = name
+    user.location = location
+
+    await user.save()
+
+    const token = user.createJWT()
+
+    res.status(StatusCodes.OK).json({user,token,location:user.location})
 }
 const Delete = async (req,res) => {
     res.send('Delete user')

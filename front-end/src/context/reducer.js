@@ -6,9 +6,11 @@ import{
     ,REGISTER_USER_ERROR,
     LOGIN_USER_BEGIN,
     LOGIN_USER_SUCCESS,
-    LOGIN_USER_ERROR
+    LOGIN_USER_ERROR,
+    TOGGLE_SIDEBAR,
+    LOGOUT_USER
     } from "./action"
-
+import { initialState } from "./appContext"
 
 const reducer = (state,action) => {
 
@@ -81,6 +83,7 @@ const reducer = (state,action) => {
             alertText: 'Login Successful! Redirecting...'
         }
     }
+
     if(action.type === LOGIN_USER_ERROR){
         return{
             ...state,
@@ -90,6 +93,22 @@ const reducer = (state,action) => {
             alertText: 'Login Failed..'
         }
     }
+    if(action.type ===  TOGGLE_SIDEBAR ){
+        return{
+            ...state,
+            showSidebar : !state.showSidebar 
+        }
+    }
+    if(action.type === LOGOUT_USER){
+        return{
+            ...initialState,
+            token:null,
+            user:null,
+            userLocation:null,
+            jobLocation:null
+        }
+    }
+
     
 
     throw new Error(`No Action Available:${action.type}`)

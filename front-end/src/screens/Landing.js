@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Wrapper from '../assets/wrapper/Landing'
 import main from '../assets/images/main.svg'
 import Logo from '../components/Logo'
-
+import { Link } from 'react-router-dom'
 
 const Landing = () => {
   return (
@@ -26,7 +26,7 @@ const Landing = () => {
 
 
         <button className='btn btn-hero'>
-            Login / Register 
+        Register / Login
         </button>
     </div>
         <img src={main} alt='main' className='img main-img'/>

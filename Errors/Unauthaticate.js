@@ -4,7 +4,7 @@ import CustomApi from './Custom-Error.js'
 class UnAuthaticate extends CustomApi {
     constructor(message){
         super(message)
-        this.StatusCode = StatusCodes.UNAUTHORIZED
+        this.StatusCodes = StatusCodes.UNAUTHORIZED
     }
 }
 
