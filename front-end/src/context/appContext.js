@@ -119,8 +119,20 @@ const AppProvider = ({children}) => {
     removeStorage()
   }
 
-  const updateUser = async ({currentUser})=>{
-    console.log('update User')
+  const updateUser = async (currentUser)=>{
+    try {
+      const {data} = await axios.patch('/api/v1/auth/update',currentUser, {
+        headers: {
+         Authorization : `Bearer${state.token}`
+         
+        },
+      })
+      console.log(data)
+    } catch (error) {
+
+      console.log(error.response)
+
+    }
   }
 
   return <AppContext.Provider value={{...state,displayAlert,RegisterUser,LoginUser,toggleSidebar,LogoutUser,updateUser}}>
