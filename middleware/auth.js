@@ -1,4 +1,4 @@
-import Jwt  from 'jsonwebtoken'
+import jwt  from 'jsonwebtoken'
 import  {UnAuthaticate} from '../errors/index.js'
 
 const auth = async (req,res,next) => {
