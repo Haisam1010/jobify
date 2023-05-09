@@ -31,7 +31,7 @@ const Register = () => {
 
   const onSubmit = (e) =>{
     e.preventDefault()
-    const {name,email,password,isMember,} = values
+    const {name,email,password,isMember,lastname} = values
     if(!email || !password || (!isMember && !name)){
       displayAlert()
       return
@@ -66,7 +66,12 @@ const Register = () => {
       {/* name input */}
      {!values.isMember &&(
       <FormRow type='text' name='name' value={values.name} handleChange={handleChange}/>
+      
+      
      )}
+
+      {/* lastname input */}
+     
 
       {/* email input */}
       <FormRow type='email' name='email' value={values.email}  handleChange={handleChange}/>
