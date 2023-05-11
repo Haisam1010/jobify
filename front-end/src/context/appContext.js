@@ -1,6 +1,7 @@
+import axios from "axios";
 import React,{useState,useReducer,useContext} from "react";
 import reducer from "./reducer";
-import axios from "axios";
+
 
 import {
   DISPLAY_ALERT,CLEAR_ALERT,
@@ -11,7 +12,10 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
   TOGGLE_SIDEBAR,
-  LOGOUT_USER
+  LOGOUT_USER,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR,
   }
   from "./action"
 import { useNavigate } from "react-router-dom";
@@ -36,7 +40,40 @@ const AppContext = React.createContext()
 
 const AppProvider = ({children}) => {
 
+
   const [state,dispatch] = useReducer(reducer,initialState)
+
+  const authFetch = axios.create({
+    baseURL: '/api/v1',
+    headers: {
+      'Authorization': `Bearer ${state.token}`
+    }
+  })
+
+  // Request 
+ authFetch.interceptors.request.use((config)=>{
+    config.headers.common['Authorization'] = `Bearer ${state.token}`
+    return config 
+ },
+  (error) => {
+    return Promise.reject(error)
+  }
+ )
+
+// Response 
+ authFetch.interceptors.request.use((response)=>{
+  return response 
+},
+(error) => {
+  console.log(error.response)
+  if(error.response.status === 401){
+    console.log('AUTH_ERROR')
+  }
+  return Promise.reject(error)
+}
+)
+
+
 
   const displayAlert = () => {
     dispatch({type:DISPLAY_ALERT})
@@ -121,12 +158,7 @@ const AppProvider = ({children}) => {
 
   const updateUser = async (currentUser)=>{
     try {
-      const {data} = await axios.patch('/api/v1/auth/update',currentUser, {
-        headers: {
-         Authorization : `Bearer${state.token}`
-         
-        },
-      })
+      const {data} = await authFetch.patch('/auth/update',currentUser )
       console.log(data)
     } catch (error) {
 
