@@ -52,7 +52,7 @@ const AppProvider = ({children}) => {
 
   // Request 
  authFetch.interceptors.request.use((config)=>{
-    config.headers.common['Authorization'] = `Bearer ${state.token}`
+    config.headers['Authorization'] = `Bearer ${state.token}`
     return config 
  },
   (error) => {
@@ -66,7 +66,7 @@ const AppProvider = ({children}) => {
 },
 (error) => {
   console.log(error.response)
-  if(error.response.status === 401){
+  if(error.response.status === 500){
     console.log('AUTH_ERROR')
   }
   return Promise.reject(error)
@@ -157,14 +157,25 @@ const AppProvider = ({children}) => {
   }
 
   const updateUser = async (currentUser)=>{
+    dispatch({type:UPDATE_USER_BEGIN})
     try {
       const {data} = await authFetch.patch('/auth/update',currentUser )
-      console.log(data)
+
+      const {user,location,token} = data
+      dispatch({
+        type:UPDATE_USER_SUCCESS,
+        payload: {user,location,token}
+      })
+      addUserLocalStorage({user,location,token})
     } catch (error) {
 
-      console.log(error.response)
+      dispatch({
+        type: UPDATE_USER_ERROR,
+        payload: {msg:error.response.data.msg}
+      })
 
     }
+    clearAlert()
   }
 
   return <AppContext.Provider value={{...state,displayAlert,RegisterUser,LoginUser,toggleSidebar,LogoutUser,updateUser}}>
