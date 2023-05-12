@@ -9,16 +9,16 @@ const Profile = () => {
 
     const [name,setName] = useState(user?.name)
     const [email,setEmail] = useState(user?.email)
-    const [lastname,setLastname] = useState(user?.lastName)
+    const [lastName,setLastname] = useState(user?.lastName)
     const [location,setLocation] = useState(user?.location)
 
     const handleSubmit = (e) =>{
         e.preventDefault()
-        if(!name || !email || !lastname || !location){
+        if(!name || !email || !lastName || !location){
           displayAlert()
           return 
         }
-        updateUser({name,email,lastname,location})
+        updateUser({name,email,lastName,location})
     }
   return (
     <Wrapper>
@@ -35,7 +35,7 @@ const Profile = () => {
         <FormRow 
         type='text'
         name='lastName' 
-        value={lastname}
+        value={lastName}
         handleChange={(e)=>setLastname(e.target.value)} 
         />
         <FormRow 
