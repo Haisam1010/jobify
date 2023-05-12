@@ -67,7 +67,7 @@ const AppProvider = ({children}) => {
 (error) => {
   console.log(error.response)
   if(error.response.status === 500){
-    console.log('AUTH_ERROR')
+    LogoutUser()
   }
   return Promise.reject(error)
 }
@@ -89,7 +89,7 @@ const AppProvider = ({children}) => {
 
   const addUserLocalStorage = ({user,token,location}) =>{
     localStorage.setItem('user',JSON.stringify(user))
-    localStorage.setItem('toke',token)
+    localStorage.setItem('token',token)
     localStorage.setItem('location',location)
   }
   const removeStorage = () =>{
@@ -160,8 +160,10 @@ const AppProvider = ({children}) => {
     dispatch({type:UPDATE_USER_BEGIN})
     try {
       const {data} = await authFetch.patch('/auth/update',currentUser )
+      console.log(data)
 
       const {user,location,token} = data
+      console.log(data)
       dispatch({
         type:UPDATE_USER_SUCCESS,
         payload: {user,location,token}
@@ -169,13 +171,16 @@ const AppProvider = ({children}) => {
       addUserLocalStorage({user,location,token})
     } catch (error) {
 
+     if(error.response.data !== 401){
       dispatch({
         type: UPDATE_USER_ERROR,
         payload: {msg:error.response.data.msg}
       })
+     }
 
     }
     clearAlert()
+    
   }
 
   return <AppContext.Provider value={{...state,displayAlert,RegisterUser,LoginUser,toggleSidebar,LogoutUser,updateUser}}>
