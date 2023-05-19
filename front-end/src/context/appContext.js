@@ -33,6 +33,14 @@ const initialState = {
     token:token,
     userLocation:userLocation || '',
     jobLocation: userLocation || '',
+    isEditing : false,
+    editJobId : '',
+    position: '',
+    company: '',
+    jobTypeOptions : ['full-time','part-time','remote','internship'],
+    jobType : 'full-time',
+    statusOptions: ['interview','declined','pending'],
+    status: 'pending',
     showSidebar : false
 }
 
