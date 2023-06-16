@@ -41,14 +41,14 @@ const updateJob = async (req,res)=>{
 const deleteJob = async (req,res)=>{
     const {id : jobId} = req.params
 
-    const Job = await findOne({_id : jobId})
+    const job = await Job.findOne({_id : jobId})
 
-    if(!Job){
+    if(!job){
         throw new NotFound(`No Job With ${id}`)
     }
 
-    CheckPer(req.user, Job.createdBy)
-    await Job.remove()
+    CheckPer(req.user, job.createdBy)
+    await job.deleteOne()
 
     res.status(StatusCodes.OK).json({msg:'Job Deleted'})
     res.send('Delete Job')
