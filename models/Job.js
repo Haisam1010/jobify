@@ -1,11 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
 const JobSchema = new mongoose.Schema({
-    company:{
-        type:String,
-        required:[true, 'Provide Your Company Name'],
-        maxlength: 20
-        },
 
     company:{
         type:String,

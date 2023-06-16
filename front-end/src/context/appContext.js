@@ -16,6 +16,15 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
+  HANDLE_CHANGE,
+  CLEAR_VALUES,
+  CREATE_JOB_BEGIN,
+  CREATE_JOB_SUCCESS,
+  CREATE_JOB_ERROR,
+  GET_JOBS_BEGIN,
+  GET_JOBS_SUCCESS,
+  SET_EDIT_JOB,
+  DELETE_JOB_BEGIN,
   }
   from "./action"
 import { useNavigate } from "react-router-dom";
@@ -41,7 +50,11 @@ const initialState = {
     jobType : 'full-time',
     statusOptions: ['interview','declined','pending'],
     status: 'pending',
-    showSidebar : false
+    showSidebar : false,
+    jobs : [],
+    totalJobs : 0,
+    numOfPages : 1,
+    page:1
 }
 
 const AppContext = React.createContext()
@@ -73,8 +86,8 @@ const AppProvider = ({children}) => {
   return response 
 },
 (error) => {
-  console.log(error.response)
-  if(error.response.status === 500){
+
+  if(error.response.status === 401){
     LogoutUser()
   }
   return Promise.reject(error)
@@ -168,10 +181,10 @@ const AppProvider = ({children}) => {
     dispatch({type:UPDATE_USER_BEGIN})
     try {
       const {data} = await authFetch.patch('/auth/update',currentUser )
-      console.log(data)
+
 
       const {user,location,token} = data
-      console.log(data)
+ 
       dispatch({
         type:UPDATE_USER_SUCCESS,
         payload: {user,location,token}
@@ -191,7 +204,80 @@ const AppProvider = ({children}) => {
     
   }
 
-  return <AppContext.Provider value={{...state,displayAlert,RegisterUser,LoginUser,toggleSidebar,LogoutUser,updateUser}}>
+  const handleChange = ({name,value}) => {
+    dispatch({
+      type: HANDLE_CHANGE,
+      payload: {name,value}
+    })
+  }
+
+  const clearValues = () =>{
+    dispatch({
+      type:CLEAR_VALUES
+    })
+  }
+
+  const createJob = async () => {
+    dispatch({type: CREATE_JOB_BEGIN})
+    try {
+      const {position,company,jobLocation,jobType,status} = state
+      await authFetch.post('/jobs',{
+        position,
+        company,
+        jobLocation,
+        jobType,
+        status
+      })
+      dispatch({type:CREATE_JOB_SUCCESS})
+      dispatch({type:CLEAR_VALUES})
+    } catch (error) {
+      if(error.response.status === 401) return
+      dispatch({type:CREATE_JOB_ERROR,payload:{msg:error.response.data.msg}})
+    }
+    clearAlert()
+  }
+
+  const getJobs = async () => {
+    const url = `/jobs`
+    dispatch({type:GET_JOBS_BEGIN})
+   try {
+    const {data} = await authFetch(url)
+    const {jobs,numOfPages,totalJobs} = data
+    dispatch({
+      type:GET_JOBS_SUCCESS,
+      payload:{
+      totalJobs,
+      numOfPages,
+      jobs
+     }
+    })
+   } catch (error) {
+    LogoutUser()
+    console.log(error.response)
+   }
+   clearAlert()
+  }
+
+  const SeteditJob = (id) => {
+    dispatch({type:SET_EDIT_JOB,payload:{id}})
+    console.log(`Edit Job :${id}`)
+  }
+  const editJob = () => {
+    console.log('Edit Job')
+  }
+  const deleteJob = async(jobId) => {
+    dispatch({type:DELETE_JOB_BEGIN})
+    try {
+      await authFetch.delete(`jobs/${jobId}`)
+      getJobs()
+    } catch (error) {
+      console.log(error.msg)
+      LogoutUser()
+    }
+  }
+  return <AppContext.Provider value={
+    {...state,displayAlert,RegisterUser,LoginUser,toggleSidebar,LogoutUser,updateUser,handleChange,clearValues,createJob,getJobs,SeteditJob,editJob,deleteJob}
+    }>
     {children}
   </AppContext.Provider>
 

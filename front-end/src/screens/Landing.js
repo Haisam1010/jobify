@@ -25,8 +25,8 @@ const Landing = () => {
 
 
 
-        <button className='btn btn-hero'>
-        Register / Login
+        <button type='button'  className='btn btn-hero'>
+            Register / Login 
         </button>
     </div>
         <img src={main} alt='main' className='img main-img'/>
