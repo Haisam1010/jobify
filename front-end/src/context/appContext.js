@@ -268,11 +268,11 @@ const AppProvider = ({children}) => {
   const deleteJob = async(jobId) => {
     dispatch({type:DELETE_JOB_BEGIN})
     try {
-      await authFetch.delete(`jobs/${jobId}`)
-      getJobs()
+      await authFetch.delete(`/jobs/${jobId}`)
+      getJobs() 
     } catch (error) {
       console.log(error.msg)
-      LogoutUser()
+     // LogoutUser()
     }
   }
   return <AppContext.Provider value={
