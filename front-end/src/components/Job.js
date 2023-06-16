@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import JobInfo from './JobInfo'
 
 const Job = ({_id,status,jobLocation,company,createdAt,position,jobType}) => {
-  const {SeteditJob,deleteJob}= useAppContext()
+  const {SeteditJob,deleteJob,editJob}= useAppContext()
   let date = moment(createdAt)
   date = date.format('MMM Do, YYYY')
   return ( 

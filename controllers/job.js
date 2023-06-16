@@ -17,13 +17,13 @@ const getAllJob = async (req,res)=>{
     res.status(StatusCodes.OK).json({jobs, totalJobs : jobs.length, numPages: 1})
 } 
 const updateJob = async (req,res)=>{
-   const {id : JobId} = req.params
+   const {id : jobId} = req.params
    const { company,position} = req.body
 
     if(!company || !position){
         throw new BadRequest('Provide All Values')
     }
-    const job = await Job.findOne({_id : JobId}) 
+    const job = await Job.findOne({_id : jobId}) 
     if(!job){
         throw new NotFound(`No Job With Id ${_id}`)
     }

@@ -21,6 +21,9 @@ import{
     GET_JOBS_SUCCESS,
     SET_EDIT_JOB,
     DELETE_JOB_BEGIN,
+    START_EDIT_BEGIN,
+    START_EDIT_SUCCESS,
+    START_EDIT_ERROR,
 
     } from "./action"
 import { initialState } from "./appContext"
@@ -235,6 +238,35 @@ const reducer = (state,action) => {
         return{
             ...state,
             isLoading: true
+        }
+    }
+
+    if(action.type === START_EDIT_BEGIN){
+       
+        return {
+            ...state,
+            isLoading : true,
+          
+        }
+    }
+    
+    if(action.type === START_EDIT_SUCCESS){
+       
+        return {
+            ...state,
+            isLoading : false,
+            showAlert: true ,
+            alertType: 'success',
+            alertText: 'Job Updated !'
+        }
+    }
+
+    if(action.type === START_EDIT_ERROR){
+        return {
+            ...state,
+            showAlert : true,
+            alertType: 'danger',
+            alertText : action.payload.msg
         }
     }
 

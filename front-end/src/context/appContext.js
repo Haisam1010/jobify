@@ -25,6 +25,9 @@ import {
   GET_JOBS_SUCCESS,
   SET_EDIT_JOB,
   DELETE_JOB_BEGIN,
+  START_EDIT_BEGIN,
+  START_EDIT_SUCCESS,
+  START_EDIT_ERROR,
   }
   from "./action"
 import { useNavigate } from "react-router-dom";
@@ -262,8 +265,23 @@ const AppProvider = ({children}) => {
     dispatch({type:SET_EDIT_JOB,payload:{id}})
     console.log(`Edit Job :${id}`)
   }
-  const editJob = () => {
-    console.log('Edit Job')
+  const editJob = async () => {
+     dispatch({type:START_EDIT_BEGIN})
+     try {
+      const {company,status,jobType,position,jobLocation} = state
+      await authFetch.patch(`/jobs/${state.editJobId}`,{
+        company,
+        status,
+        position,jobType,
+        jobLocation,
+      })
+      dispatch({type:START_EDIT_SUCCESS})
+      dispatch({type:CLEAR_VALUES})
+     } catch (error) {
+      if(error.response.response === 401) return
+      dispatch({type:START_EDIT_ERROR, payload:{msg:error.response.data.msg}})
+     }
+     clearAlert()
   }
   const deleteJob = async(jobId) => {
     dispatch({type:DELETE_JOB_BEGIN})
