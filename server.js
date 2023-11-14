@@ -26,7 +26,7 @@ app.post('/', (req, res) => {
 // Get all jobs
 
 app.get('/api/v1/jobs', (req, res) => {
-  res.status(200).json({job})
+  res.status(200).json({jobs})
 })
 
 // Create job
