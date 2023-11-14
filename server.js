@@ -18,6 +18,8 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.json())
 
+// Home route
+
 app.post('/', (req, res) => {
   console.log(req)
   res.json({ message: 'Hello World!', data:req.body })
@@ -41,6 +43,16 @@ app.post('/api/v1/jobs', (req, res) => {
   jobs.push(jobs)
   res.status(200).json({job})
 })
+
+// Single job
+
+app.get('/api/v1/jobs/:id'), (req, res) => {
+const {id} = req.params
+const job = jobs.find((job) => job.id === id)
+if (!job) {
+  return res.status(404).json({message:'Job not found'})
+  res.status(200).json({job})
+}
 
 const PORT = process.env.PORT || 5100
 
