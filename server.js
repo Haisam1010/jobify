@@ -37,9 +37,9 @@ app.post('/api/v1/jobs', (req, res) => {
     return res.status(400).json({message:'Please enter all fields'})
   }
   const id = nanoid(10)
-  const newJob = {id,title,company} 
-  job.push(newJob)
-  res.status(200).json({newJob})
+  const job = {id,title,company} 
+  job.push(job)
+  res.status(200).json({job})
 })
 
 const PORT = process.env.PORT || 3000
