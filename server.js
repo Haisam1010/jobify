@@ -32,7 +32,7 @@ app.get('/api/v1/jobs', (req, res) => {
 // Create job
 
 app.post('/api/v1/jobs', (req, res) => {
-  const {title, company} = req.body.title
+  const {title, company} = req.body
   if (!title || !company) {
     return res.status(400).json({message:'Please enter all fields'})
   }
