@@ -39,7 +39,7 @@ app.post('/api/v1/jobs', (req, res) => {
   const id = nanoid(10)
   const job = {id,title,company} 
   jobs.push(jobs)
-  res.status(200).json({jobs})
+  res.status(200).json({job})
 })
 
 const PORT = process.env.PORT || 5100
