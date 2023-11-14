@@ -7,7 +7,7 @@ import { nanoid } from 'nanoid'
 
 
 
-let job = [
+let jobs = [
   {id:nanoid(), title:'Software Engineer', company:'Google'},
 ]
 
@@ -38,8 +38,8 @@ app.post('/api/v1/jobs', (req, res) => {
   }
   const id = nanoid(10)
   const job = {id,title,company} 
-  job.push(job)
-  res.status(200).json({job})
+  job.push(jobs)
+  res.status(200).json({jobs})
 })
 
 const PORT = process.env.PORT || 5100
