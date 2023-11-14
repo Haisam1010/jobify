@@ -38,7 +38,7 @@ app.post('/api/v1/jobs', (req, res) => {
   }
   const id = nanoid(10)
   const job = {id,title,company} 
-  job.push(jobs)
+  jobs.push(jobs)
   res.status(200).json({jobs})
 })
 
