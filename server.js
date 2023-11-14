@@ -34,16 +34,15 @@ app.get('/api/v1/jobs', (req, res) => {
 // Create job
 
 app.post('/api/v1/jobs', (req, res) => {
-  const {title, company} = req.body
+  const {title, company} =  req.body
   if (!title || !company) {
     return res.status(400).json({message:'Please enter all fields'})
   }
   const id = nanoid(10)
   const job = {id,title,company} 
   jobs.push(jobs)
-  res.status(200).json({job})
+  res.status(201).json({job})
 })
-
 // Single job
 
 app.get('/api/v1/jobs/:id'), (req, res) => {
@@ -51,7 +50,8 @@ const {id} = req.params
 const job = jobs.find((job) => job.id === id)
 if (!job) {
   return res.status(404).json({message:'Job not found'})
-  res.status(200).json({job})
+}
+res.status(200).json({job})
 }
 
 const PORT = process.env.PORT || 5100
