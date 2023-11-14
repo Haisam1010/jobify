@@ -42,7 +42,7 @@ app.post('/api/v1/jobs', (req, res) => {
   res.status(200).json({job})
 })
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5100
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
