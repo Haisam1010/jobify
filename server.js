@@ -46,18 +46,19 @@ app.post('/api/v1/jobs', (req, res) => {
 
 // Single job
 
-app.get('/api/v1/jobs/:id'), (req, res) => {
-const {id} = req.params
-const job = jobs.find((job) => job.id === id)
-if (!job) {
-  return res.status(404).json({message:'Job not found'})
-}
-res.status(200).json({job})
-}
+app.get('/api/v1/jobs/:id',(req, res) => {
+  const {id} = req.params
+  const job = jobs.find((job) => job.id === id)
+  if (!job) {
+    return res.status(404).json({message:'Job not found'})
+  }
+  return res.status(200).json({job})
+  }) 
 
 // Update job
 
-app.patch('/api/v1/jobs/:id'), (req, res) => {
+app.patch('/api/v1/jobs/:id',(req, res) => {
+    const {title, company} =  req.body
   if (!title || !company) {
     return res.status(400).json({message:'Please enter all fields'})
   }
@@ -66,12 +67,11 @@ app.patch('/api/v1/jobs/:id'), (req, res) => {
   if (!job) {
     return res.status(404).json({message:`Job not found with id of ${id}`})
   }
-
   job.title = title
   job.company = company
   res.status(200).json({message:'Job Modified',job})
 
-}
+})
 
 const PORT = process.env.PORT || 5100
 
