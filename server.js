@@ -87,6 +87,10 @@ app.delete('/api/v1/jobs/:id',(req, res) => {
 
 })
 
+app.use('*',(rq,res)=>{
+  res.status(404).json({message:'Route not found'})
+})
+
 
 const PORT = process.env.PORT || 5100
 
