@@ -7,20 +7,27 @@ const Landing = () => {
   return (
     <Wrapper>
       <nav>
-        <img src={logo} alt='logo' className='logo' />
+        <Logo />
       </nav>
-
-      <div className="container page">
+      <div className='container page'>
         <div className='info'>
-          <h1>Job <span> Tracking </span> </h1> 
+          <h1>
+            job <span>tracking</span> app
+          </h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris dictum turpis nec turpis facilisis lacinia. 
-            Quisque rhoncus porta dignissim. Sed non dapibus quam, eget fringilla lectus. Cras et risus a augue hendrerit posuere. 
-            Donec posuere nisi dui, ut molestie nisi facilisis cursus. Nulla pretium aliquet finibus. 
-            Donec iaculis volutpat dui, at aliquet nulla fermentum eget. 
+            I'm baby wayfarers hoodie next level taiyaki brooklyn cliche blue
+            bottle single-origin coffee chia. Aesthetic post-ironic venmo,
+            quinoa lo-fi tote bag adaptogen everyday carry meggings +1 brunch
+            narwhal.
           </p>
-          <Link to='/login' className="btn"> Login / Demo User </Link>
+          <Link to='/register' className='btn register-link'>
+            Register
+          </Link>
+          <Link to='/login' className='btn '>
+            Login / Demo User
+          </Link>
         </div>
+        <img src={main} alt='job hunt' className='img main-img' />
       </div>
     </Wrapper>
   )
