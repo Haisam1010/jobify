@@ -73,6 +73,21 @@ app.patch('/api/v1/jobs/:id',(req, res) => {
 
 })
 
+// Delete job
+
+app.delete('/api/v1/jobs/:id',(req, res) => {
+  const {id} = req.params
+  const job = jobs.find((job) => job.id === id)
+  if (!job) {
+    return res.status(404).json({message:`Job not found with id of ${id}`})
+  }
+  const Newjobs = jobs.filter((job) => job.id !== id)
+  jobs = Newjobs
+  res.status(200).json({message:'Job Deleted'})
+
+})
+
+
 const PORT = process.env.PORT || 5100
 
 if (process.env.NODE_ENV !== 'test') {
