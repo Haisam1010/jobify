@@ -24,6 +24,18 @@ app.use((err,req,res,next)=>{
 // Server
 const PORT = process.env.PORT || 5100
 // const PORT = 5100
+
+mongoose.connect(process.env.MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => {
+        console.log('Connected to Mongo!');
+    })
+    .catch((err) => {
+        console.error('Error connecting to Mongo', err);
+    });
+
 if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
