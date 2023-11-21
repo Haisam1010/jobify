@@ -1,29 +1,29 @@
 import { StatusCodes } from 'http-status-codes'
 import Job from '../Models/JobModel.js'
 import { nanoid } from 'nanoid'
-
+import { NotFoundError } from '../Errors/CustomErrors.js'
 
 
 // Get All Jobs
 export const getAllJobs = async (req, res) => {
     const jobs = await Job.find({})
     res.status(StatusCodes.OK).json({jobs})
+    if (!jobs) throw new NotFoundError(`No jobs found`)
 }
 
 // Create Jobs
 export const CreateJob = async (req, res) => {
     const jobs = await Job.create(req.body)
     res.status(StatusCodes.CREATED).json({jobs})
+    if (!jobs) throw new NotFoundError(`No jobs found`)
   }
 
 // Get Single Job
 export const getSingleJob = async (req, res) => {
     const {id} = req.params
     const job = await Job.findById(id)
-    if (!job) {
-      return res.status(StatusCodes.NOT_FOUND).json({message:'Job not found'})
-    }
-    return res.status(StatusCodes.OK).json({job})
+    if (!job) throw new NotFoundError(`No job with id of ${id}`)
+    res.status(StatusCodes.OK).json({job})
     }
 
     

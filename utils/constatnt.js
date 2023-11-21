@@ -3,3 +3,16 @@ export const JOB_STATUS = {
     INTERVIEW : 'interview',
     REJECTED : 'rejected',
 }
+
+export const JOB_TYPE = {
+    FULL_TIME : 'full-time',
+    PART_TIME : 'part-time',
+    INTERNSHIP : 'internship',
+}
+
+export const JOB_SHORT_BY = {
+    NEWEST : 'newest',
+    OLDEST : 'oldest',
+    ASCENDING : 'a-z',
+    DECENDING : 'z-a',
+}
