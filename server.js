@@ -5,21 +5,25 @@ import express from 'express'
 const app = express()
 import morgan from 'morgan'
 import JobRouter from './routes/jobRoutes.js'
+import authRouter from './routes/authRoutes.js'
 import mongoose from 'mongoose'
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js'
 import { body,validationResult } from 'express-validator'
-
+import { authRout } from './middleware/authMiddleware.js'
+import cookieParser from 'cookie-parser'
 // Middleware 
-app.use(errorHandlerMiddleware)
 // Dev logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
 // Body parser
 app.use(express.json())
+app.use(cookieParser())
 
 // Jobs routes
-app.use('/api/v1/jobs',JobRouter)
+app.use('/api/v1/jobs',authRout,JobRouter)
+// Auth routes
+app.use('/api/v1/auth',authRouter)
 // Error handling
 app.use('*',(rq,res)=>{
   res.status(404).json({message:'Route not found'})
