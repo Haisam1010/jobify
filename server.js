@@ -6,6 +6,7 @@ const app = express()
 import morgan from 'morgan'
 import JobRouter from './routes/jobRoutes.js'
 import authRouter from './routes/authRoutes.js'
+import userRouter from './routes/userRouter.js'
 import mongoose from 'mongoose'
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js'
 import { body,validationResult } from 'express-validator'
@@ -22,6 +23,8 @@ app.use(cookieParser())
 
 // Jobs routes
 app.use('/api/v1/jobs',authRout,JobRouter)
+// User routes
+app.use('/api/v1/users',authRout,userRouter)
 // Auth routes
 app.use('/api/v1/auth',authRouter)
 // Error handling

@@ -14,3 +14,11 @@ export const authRout = (req,res,next)=> {
   
 }
 
+export const authPermission = (...roles)=> {
+    return(req,res,next)=> {
+        if(!roles.includes(req.user.role)) throw new Unauthenticated('Not authorized')
+        console.log(roles)
+        next()
+    }
+}
+

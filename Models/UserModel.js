@@ -22,5 +22,11 @@ const userSchema = new mongoose.Schema({
         ref:'User'
     }
     },{timestamps:true})
+
+    userSchema.methods.toJson = function(){
+        let obj = this.toObject()
+        delete obj.password
+        return obj
+    }
     
 export default mongoose.model('User',userSchema)

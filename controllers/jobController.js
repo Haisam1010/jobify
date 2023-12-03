@@ -5,13 +5,13 @@ import { nanoid } from 'nanoid'
 
 // Get All Jobs
 export const getAllJobs = async (req, res) => {
-  console.log(req.user)
-    const jobs = await Job.find({})
+    const jobs = await Job.find({createdBy:req.user.Userid})
     res.status(StatusCodes.OK).json({jobs})
 }
 
 // Create Jobs
 export const CreateJob = async (req, res) => {
+    req.body.createdBy = req.user.Userid
     const jobs = await Job.create(req.body)
     res.status(StatusCodes.CREATED).json({jobs})
   }
