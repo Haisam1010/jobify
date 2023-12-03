@@ -21,6 +21,10 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json())
 app.use(cookieParser())
 
+app.get('/api/v1/test',(req,res)=>{
+  res.json({message:' route test'})
+})
+
 // Jobs routes
 app.use('/api/v1/jobs',authRout,JobRouter)
 // User routes
